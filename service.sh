@@ -33,6 +33,8 @@ usage() {
   $0 update     обновить zapret из upstream + пересобрить и переустановить
   $0 uninstall  полностью удалить zapret из системы
   $0 this       показать этот список
+
+Полная инструкция : $ZAPRET_DIR/INSTRUCTIONS.ru.md
 EOF
 }
 
