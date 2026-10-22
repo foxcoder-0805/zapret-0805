@@ -27,6 +27,7 @@ usage() {
   $0 restart    перезапуск (после правки config или хостлистов)
   $0 status     состояние сервиса и nfqws
   $0 log        последние 50 строк журнала
+  $0 validate   проверка опций nfqws (как её делает установщик, нужен root)
   $0 check      проверить, работает ли обход (доступность YouTube)
   $0 test       прогнать blockcheck.sh (подбор стратегии при поломке)
   $0 update     обновить zapret из upstream + пересобрить и переустановить
@@ -67,6 +68,22 @@ cmd_status() {
 }
 
 cmd_log() { journalctl -u zapret -n 50 --no-pager; }
+
+cmd_validate() {
+	# повторяет проверку установщика : nfqws --dry-run от root (как под sudo).
+	# именно так ловится ошибка droproot : root-процесс не может прочитать
+	# хостлисты, если путь к ним закрыт для «чужих» uid (например 700 в ~/)
+	need_root validate
+	echo "* валидация NFQWS_OPT как её делает install_easy.sh"
+	# shellcheck disable=SC1091
+	. "$ZAPRET_DIR/config"
+	local opt="$NFQWS_OPT" qn=${QNUM:-200}
+	if "$ZAPRET_DIR/nfq/nfqws" --dry-run --qnum=$qn $opt; then
+		ok "опции nfqws валидны"
+	else
+		die "nfqws отверг опции — если сказано «cannot access hostlist file», закрыт доступ к каталогу: sudo chmod o+x ~"
+	fi
+}
 
 cmd_check() {
 	echo \* проверка доступности
@@ -138,6 +155,7 @@ case "$cmd" in
 	restart)   cmd_restart ;;
 	status)    cmd_status ;;
 	log)       cmd_log ;;
+	validate)  cmd_validate ;;
 	check)     cmd_check ;;
 	test)      cmd_test ;;
 	update)    cmd_update ;;
