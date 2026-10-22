@@ -106,7 +106,7 @@ NFQWS_OPT="
 MODE_FILTER=hostlist
 
 # donttouch,none,software,hardware
-FLOWOFFLOAD=donttouch
+FLOWOFFLOAD=none
 
 # openwrt: specify networks to be treated as LAN. default is "lan"
 #OPENWRT_LAN="lan lan2 lan3"

@@ -62,9 +62,14 @@ cmd_status() {
 	fi
 	echo
 	echo \* nftables
-	nft list ruleset 2>/dev/null | grep -c zapret >/dev/null \
-		&& ok "правила zapret присутствуют в nft" \
-		|| warn "правил zapret в nft нет"
+	# без root nft list ruleset отказывается работать — пробуем через sudo -n
+	local rules
+	rules=$(sudo -n nft list ruleset 2>/dev/null || nft list ruleset 2>/dev/null)
+	if grep -q 'queue flags bypass to' <<<"$rules"; then
+		ok "правила queue-to-nfqws присутствуют в nft"
+	else
+		warn "правил queue в nft нет (запустите: sudo ./service.sh status)"
+	fi
 }
 
 cmd_log() { journalctl -u zapret -n 50 --no-pager; }
