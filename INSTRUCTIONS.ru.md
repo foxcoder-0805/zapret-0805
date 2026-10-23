@@ -80,12 +80,12 @@ sudo ./service.sh update      # fetch upstream, merge, сборка, переу�
 
 - Рабочая ветка — `main`, для изменений создаётся `feature/...`,
   коммит после каждого логического шага, затем merge в `main`.
-- `origin` переименован в **`upstream`** — это чужой репозиторий
-  (bol-van/zapret), пушить туда нельзя и не нужно.
-- Свои файлы под git: `config`, `ipset/zapret-hosts-user.txt`, `service.sh`.
-  Артефакты сборки `binaries/` — в `.gitignore`.
-- Когда появится свой remote (GitHub/Gitea) — добавить его как `origin`
-  и пушить после каждого коммита.
+- `origin` — свой репозиторий (`git@github.com:foxcoder-0805/zapret-0805.git`),
+  пуш после каждого коммита. Push в `upstream` намеренно отключён
+  (`git remote set-url --push upstream DISABLED`) — это чужой репозиторий
+  (bol-van/zapret), откуда приходят обновления.
+- Свои файлы под git: `config`, `ipset/zapret-hosts-user.txt`, `service.sh`,
+  `INSTRUCTIONS.ru.md`. Артефакты сборки `binaries/` — в `.gitignore`.
 - Обновления от автора приходят через `upstream` (`service.sh update`).
 
 ## Важные нюансы этой установки
