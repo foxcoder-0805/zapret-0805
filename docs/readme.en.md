@@ -4,10 +4,7 @@ This software is free and open source under [MIT license](./LICENSE.txt).
 If anyone demands you to download this software only from their webpage, telegram channel, forces you to delete links, videos, makes copyright claims, you are dealing with scammers.
 However, [donations](#donations) are welcome.
 
-# zapret2
-
-zapret 1 is EOL (End-Of-Life). Will be no more new features, no PR will be accepted.
-Current version is [zapret2](https://github.com/bol-van/zapret2).
+Made with AI.
 
 # Multilanguage/Мультиязычный README
 ___
